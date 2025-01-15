@@ -12,10 +12,7 @@ const addNewUser = async (req, res) => {
 
         const subscription = createUserSubscription(subscriptionType, subscriptionAttributes);
 
-        console.log('subscription: ',subscription);
-        
-
-        const user = await service.addNewUser(Nombre, Apellido, Email, subscriptionType, subscriptionAttributes);
+        const user = await service.addNewUser(Nombre, Apellido, Email, subscriptionType, subscription.nivel);
 
         res.status(201).json(user);
     } catch (error) {

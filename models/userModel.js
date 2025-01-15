@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     Apellido: { type: String, required: true },
     Email: { type: String, required: true, unique: true },
     Subscription: {
-        tipo: { type: String, enum: ['usuarioPlatino', 'usuarioBronze'], required: true },
+        tipo: { type: String, enum: ['UsuarioPlatino', 'UsuarioBronze'], required: true },
         nivel: { type: Number, required: true }
     }
 });
@@ -15,12 +15,17 @@ const UserModel = mongoose.model('User', userSchema);
 
 class UserService {
 
-    async addNewUser({ Nombre, Apellido, Email, tipoSuscripcion, nivelSuscripcion }) {
+    async addNewUser( Nombre, Apellido, Email, tipoSuscripcion, nivelSuscripcion ) {
+        console.log('Creando el usuario:', { Nombre, Apellido, Email, tipoSuscripcion, nivelSuscripcion });
+
         try {
             const subscription = createUserSubscription(tipoSuscripcion, {
                 usuarioId: Email,
                 nivel: nivelSuscripcion
             });
+
+            console.log('Creando el usuario con suscripción:', subscription);
+            
 
             const user = new UserModel({
                 Nombre,
